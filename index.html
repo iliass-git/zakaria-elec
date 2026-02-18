@@ -12,13 +12,86 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Droid Arabic Kufi', sans-serif;
             background: white;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             color: #1a1a1a;
+            transition: direction 0.3s ease;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        body.ar {
+            direction: rtl;
+        }
+
+        body.en {
+            direction: ltr;
+        }
+
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        body.ar .language-toggle {
+            right: auto;
+            left: 20px;
+        }
+
+        .lang-btn {
+            padding: 8px 12px;
+            border: 2px solid #163959;
+            background: rgba(22, 57, 89, 0.1);
+            color: #163959;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn.active {
+            background: #163959;
+            color: #fff;
+            opacity: 1;
+            transform: scale(1.15);
+            border: 2px solid #163959;
+            box-shadow: 0 4px 15px rgba(22, 57, 89, 0.3);
+        }
+
+        .lang-btn:hover {
+            opacity: 0.9;
+            background: rgba(22, 57, 89, 0.2);
+            transform: translateY(-2px);
         }
 
         .container {
@@ -26,15 +99,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
+            justify-content: flex-start;
+            padding: 40px 20px 60px 20px;
             text-align: center;
+            margin-top: 0;
         }
 
         .logo {
-            max-width: 350px;
-            margin-bottom: 50px;
+            max-width: 160px;
+            margin-bottom: 30px;
             animation: slideDown 0.8s ease-out;
+            padding: 20px;
         }
 
         .logo img {
@@ -44,30 +119,33 @@
         }
 
         h1 {
-            color: #000;
+            color: #163959;
             font-size: 3.5rem;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 20px;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
             animation: fadeIn 1s ease-out;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .subtitle {
             font-size: 1.1rem;
             color: #666;
             margin-bottom: 50px;
-            font-weight: 300;
+            font-weight: 400;
             animation: fadeIn 1.2s ease-out;
+            letter-spacing: 0.5px;
         }
 
         .content {
-            background-color: #f9f9f9;
+            background: rgba(255, 255, 255, 0.95);
             padding: 50px;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(22, 57, 89, 0.12);
             max-width: 600px;
             animation: slideUp 0.8s ease-out;
-            border: 1px solid #f0f0f0;
+            border: 1px solid rgba(22, 57, 89, 0.15);
+            backdrop-filter: blur(20px);
         }
 
         .content p {
@@ -79,7 +157,7 @@
 
         .construction-message {
             font-size: 1.5rem;
-            color: #0066cc;
+            color: #163959;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -87,9 +165,14 @@
             gap: 12px;
         }
 
+        body.ar .construction-message {
+            flex-direction: row-reverse;
+        }
+
         .construction-icon {
             font-size: 2rem;
             animation: bounce 2s infinite;
+            flex-shrink: 0;
         }
 
         @keyframes bounce {
@@ -106,7 +189,7 @@
             color: #333;
             padding: 40px 20px;
             text-align: center;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid rgba(22, 57, 89, 0.15);
         }
 
         footer p {
@@ -116,7 +199,7 @@
         }
 
         footer a {
-            color: #0066cc;
+            color: #1877F2;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -125,8 +208,12 @@
         }
 
         footer a:hover {
-            color: #0052a3;
+            color: #0a66c2;
             text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
         }
 
         @keyframes slideDown {
@@ -161,6 +248,16 @@
         }
 
         @media (max-width: 768px) {
+            .language-toggle {
+                top: 15px;
+                right: 15px;
+            }
+
+            body.ar .language-toggle {
+                right: auto;
+                left: 15px;
+            }
+
             h1 {
                 font-size: 2.2rem;
             }
@@ -182,11 +279,22 @@
                 max-width: 280px;
                 margin-bottom: 40px;
             }
+
+            .lang-btn {
+                padding: 6px 8px;
+                font-size: 1.5rem;
+            }
         }
 
         @media (max-width: 480px) {
+            body {
+                justify-content: flex-start;
+            }
+
             .container {
                 padding: 40px 16px;
+                margin-top: 60px;
+              
             }
 
             h1 {
@@ -205,22 +313,87 @@
                 max-width: 220px;
                 margin-bottom: 30px;
             }
+
+            .lang-btn {
+                padding: 4px 6px;
+                font-size: 1.3rem;
+            }
+
+            .construction-message {
+                font-size: 1.2rem;
+                gap: 8px;
+            }
+
+            .construction-icon {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
-<body>
+<body class="ar">
+    <div class="logo">
+        <img src="media/logo.png" alt="Zakaria Elec & Maintenance Logo">
+    </div>
+    <div class="language-toggle">
+        <button class="lang-btn" data-lang="en">🇬🇧</button>
+        <button class="lang-btn active" data-lang="ar">🇲🇦</button>
+    </div>
     <div class="container">
-        <h1>Zakaria Elec & Maintenance</h1>
-        <p class="subtitle">Professional Electrical & Maintenance Services</p>
+        <h1 class="en-text">Zakaria Elec & Maintenance</h1>
+        <h1 class="ar-text hidden">Zakaria Elec & Maintenance</h1>
+        
+        <p class="subtitle en-text">Professional Electrical & Maintenance Services</p>
+        <p class="subtitle ar-text hidden">خدمات كهربائية واصيانة احترافية</p>
+        
         <div class="content">
             <div class="construction-message">
                 <span class="construction-icon">🛠️</span>
-                <span>The site is under construction</span>
+                <span class="en-text">The site is under construction</span>
+                <span class="ar-text hidden">الموقع قيد الإنشاء</span>
             </div>
         </div>
     </div>
     <footer>
-        <p>Connect with us:<a href="https://www.facebook.com/share/1CxPWfNwtN/" target="_blank">Facebook</a></p>
+        <p><span class="en-text">Connect with us:</span><span class="ar-text hidden">تواصل معنا:</span><a href="https://www.facebook.com/share/1CxPWfNwtN/" target="_blank">Facebook</a></p>
     </footer>
+
+    <script>
+        // Get saved language preference or default to Arabic
+        const savedLang = localStorage.getItem('language') || 'ar';
+        setLanguage(savedLang);
+
+        // Language toggle button listeners
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                setLanguage(lang);
+            });
+        });
+
+        function setLanguage(lang) {
+            // Update body class and direction
+            document.body.className = lang;
+            document.documentElement.lang = lang;
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Show/hide language-specific content
+            document.querySelectorAll('.en-text').forEach(el => {
+                el.classList.toggle('hidden', lang === 'ar');
+            });
+
+            document.querySelectorAll('.ar-text').forEach(el => {
+                el.classList.toggle('hidden', lang === 'en');
+            });
+
+            // Save preference
+            localStorage.setItem('language', lang);
+        }
+    </script>
 </body>
-</html>
